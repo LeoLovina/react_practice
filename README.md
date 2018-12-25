@@ -37,3 +37,4 @@ import HelloMessage from './myApp';
 
 # How to edit Markdown
 https://github.com/neilsustc/vscode-markdown/blob/master/README.md
+edit
