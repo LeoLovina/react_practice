@@ -3,6 +3,8 @@
 ```
  React.createElement(component, props, ...children)
 ```
+利用 
+https://babeljs.io/repl 可以觀查 React 如何利用 Babel 轉換 
 
 # React.render()
 React.render( react component, DOM element)
