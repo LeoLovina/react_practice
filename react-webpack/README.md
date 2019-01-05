@@ -10,6 +10,7 @@
 # Note
 * 更新案裡的套件.
 > npm update 
+* webpack only support one output per configuration as of Jun 2016
 
 
 
