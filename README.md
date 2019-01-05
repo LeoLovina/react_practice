@@ -14,7 +14,7 @@ React 使用 Virtual DOM 來處理頁面渲染(page rendering), 而不是直接�
     > npm --version
     
 
-* npm install -g create-react-app
+npm install -g create-react-app
 * create-react-app my-app
     * create-react-app my-app --scripts-version=react-scripts-ts
 # React Component
