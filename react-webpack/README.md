@@ -7,6 +7,11 @@
 > npm install --save react react-dom @types/react @types/react-dom
 
 
+# Note
+* 更新案裡的套件.
+> npm update 
+
+
 
 
 
