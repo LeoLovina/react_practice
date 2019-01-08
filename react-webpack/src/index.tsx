@@ -13,6 +13,6 @@ ReactDOM.render(
         <Hello defaultName="Mini" />  
         <img src="./src/images/mini.jpg" alt="mini"/>
         <UserComponent name="Leo" age={105} address="I don't know" dob={new Date()} />
-        <Welcome />
+        <Welcome defaultName="Monkey D"/>
     </div>,
      root);

@@ -11,7 +11,6 @@ export default class Hello extends React.Component<HelloInterface, any> {
   }
   constructor(props: any){
     super(props);
-    console.log(props);
    // this.state = {name: this.props.defaultName};
   }
   greeting: string = "Hello Leo";

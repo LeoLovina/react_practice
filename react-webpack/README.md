@@ -48,7 +48,20 @@ export default class HelloWorld extends React.Component<HelloInterface, {}> {
 </div>
 ```
 
+# State
+在component的 constructor 設定state初始值
+要改變state，必須使用setState()
+```
+ class Welcome extends React.Component<any, any> {
+    constructor(props: any) {
+        super(props);
+        this.state = {name: this.props.defaultName};
+    }
 
+    public handleChange(event: any): void {
+        this.setState({name: "One Piece"});
+    }
+```
 
 # Inline Styles
 在 React 中的 inline style, 並不可以用 string 直接來控制, 而是用 JSON object, 其中的 key 需要是 camelCased 的 style name, 而 value 通常是 string
