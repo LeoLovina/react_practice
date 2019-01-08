@@ -2,14 +2,17 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import  Hello  from "./components/Hello";
-//import  ModA  from "./modules/a/modA";
+import  UserComponent  from "./components/UserComponent";
+import  Welcome  from "./components/WelcomeComponent";
 
+const root = document.getElementById('example');
 
 ReactDOM.render(
-    // <Hello compiler="TypeScript" framework="React" />, document.getElementById("example")
     <div>
         <Hello />  
+        <Hello defaultName="Mini" />  
+        <img src="./src/images/mini.jpg" alt="mini"/>
+        <UserComponent name="Leo" age={105} address="I don't know" dob={new Date()} />
+        <Welcome />
     </div>,
-     document.getElementById("example")
-
-);
+     root);

@@ -1,22 +1,34 @@
 import * as React from "react"
 
 
-class Hello extends React.Component {
-    greeting: string = "Hello Leo";
-    
-    Hello(){
-        this.greeting = "Hello World";
-        console.log('default constructor');
-    }
+interface HelloInterface{
+  defaultName: string;
+}
 
-    public render() {
-        // let greeting: string = "Hello Leo";
-        return (
-        <div>
-          {this.greeting}
-        </div>
-      );
-    }
+export default class Hello extends React.Component<HelloInterface, any> {
+  public static defaultProps = {
+    defaultName: "Default Name"
   }
-  
-  export default Hello;
+  constructor(props: any){
+    super(props);
+    console.log(props);
+   // this.state = {name: this.props.defaultName};
+  }
+  greeting: string = "Hello Leo";
+
+  public render() {
+    const divStyle = {
+      backgroundColor: '#FFD382',
+      padding: '10px',
+      marginBottom: '5px'
+    };
+    return (
+      <div style={divStyle} >
+        {this.greeting}
+        Hello {this.props.defaultName}
+       
+      </div>
+    );
+  }
+}
+
