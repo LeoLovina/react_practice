@@ -5,29 +5,38 @@ class Welcome extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         console.log(props);
-        this.state = {name: this.props.defaultName};
+        this.state = {name: this.props.defaultName,
+            age: this.props.defaultAge
+        };
+        this.handleOnAgeChange = this.handleOnAgeChange.bind(this);
     }
 
     public handleOnBtnClick(event: any): void {
-        console.log(event);
-        let aa =  this.props.defaultName;
         this.setState({name: "One Piece"});
     }
 
-    public handleOnChange(event: any): void {
-        console.log(event);
+    public handleOnNameChange(event: any): void {
         this.setState({name: event.target.value});
     }
 
+    handleOnNameChange2 = (event) => {
+        this.setState({name: event.target.value});
+    }
+
+    public handleOnAgeChange(event: any): void {
+        this.setState({age: event.target.value});
+    }
+
     render() {
+        console.log('Welcome render');
         return (
             <div>
-                {/* <Hello defaultName='World' /> */}
-                <Hello defaultName={this.state.name} />
+                <Hello handleAgeChange = {this.handleOnAgeChange }/>
                 <button name="Update" onClick= {e=> this.handleOnBtnClick(e)}  value="Update"> Update</button>
-                <input name="nameText" onChange = {e=> this.handleOnChange(e)} />
-                {this.state.name}
-                <input name="valueText" value={this.state.name} readOnly/>
+                <input name="nameText" onChange = {e=> this.handleOnNameChange(e)} />
+                <input name="nameText2" onChange = {e=> this.handleOnNameChange2(e)} />
+                <h5> defaultName: {this.state.name} </h5>
+                <h5> defaultAge: {this.state.age} </h5>
             </div>
         )
     }
