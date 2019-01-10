@@ -82,5 +82,11 @@ export default class HelloWorld extends React.Component<HelloInterface, {}> {
 
 # 注意事項
 1. All DOM properties and attributes (including event handlers) should be camelCased to be consistent with standard JavaScript style
+2. React 中的 state 有點像是 component 中的 local variable，它是由 component 自己本身來維護它的值
+3. React 中的 props 是唯讀, 不可以被再設定值, 當 props 在 component 中被設定成 any, 此時表示在 caller 中, 可以任意指定參數, 並不會有型態的檢查
+4. 當在 component 中加入 input 時, 若是沒有設定 onChange, 此時需要指定此 input 為 readonly
+5. 當一個 event 被 trigger 時, 更新的 state, 而 state 的變化進而要求 component 重新 render 
+6.  Unidirectional Data Flow  ==> event > evrnt handler > state > render
+  
 
 

@@ -6,14 +6,14 @@ interface HelloInterface{
 }
 
 export default class Hello extends React.Component<HelloInterface, any> {
+
+  // set default props value here, otherwise the caller need to provide all fields on HelloInterface
   public static defaultProps = {
     defaultName: "Default Name"
   }
   constructor(props: any){
     super(props);
-   // this.state = {name: this.props.defaultName};
   }
-  greeting: string = "Hello Leo";
 
   public render() {
     const divStyle = {
@@ -23,9 +23,7 @@ export default class Hello extends React.Component<HelloInterface, any> {
     };
     return (
       <div style={divStyle} >
-        {this.greeting}
         Hello {this.props.defaultName}
-       
       </div>
     );
   }

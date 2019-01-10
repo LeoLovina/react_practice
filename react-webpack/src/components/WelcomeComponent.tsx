@@ -8,9 +8,15 @@ class Welcome extends React.Component<any, any> {
         this.state = {name: this.props.defaultName};
     }
 
-    public handleChange(event: any): void {
+    public handleOnBtnClick(event: any): void {
         console.log(event);
+        let aa =  this.props.defaultName;
         this.setState({name: "One Piece"});
+    }
+
+    public handleOnChange(event: any): void {
+        console.log(event);
+        this.setState({name: event.target.value});
     }
 
     render() {
@@ -18,7 +24,10 @@ class Welcome extends React.Component<any, any> {
             <div>
                 {/* <Hello defaultName='World' /> */}
                 <Hello defaultName={this.state.name} />
-                <button name="Update" onClick= {e=> this.handleChange(e)}  value="Update"> Update</button>
+                <button name="Update" onClick= {e=> this.handleOnBtnClick(e)}  value="Update"> Update</button>
+                <input name="nameText" onChange = {e=> this.handleOnChange(e)} />
+                {this.state.name}
+                <input name="valueText" value={this.state.name} readOnly/>
             </div>
         )
     }
