@@ -81,13 +81,15 @@ export default class HelloWorld extends React.Component<HelloInterface, {}> {
 ```
 
 # 注意事項
-1. All DOM properties and attributes (including event handlers) should be camelCased to be consistent with standard JavaScript style
-2. React 中的 state 有點像是 component 中的 local variable，它是由 component 自己本身來維護它的值
-3. React 中的 props 是唯讀, 不可以被再設定值, 當 props 在 component 中被設定成 any, 此時表示在 caller 中, 可以任意指定參數, 並不會有型態的檢查
-4. 當在 component 中加入 input 時, 若是沒有設定 onChange, 此時需要指定此 input 為 readonly
-5. 當一個 event 被 trigger 時, 更新的 state, 而 state 的變化進而要求 component 重新 render 
-6. Unidirectional Data Flow  ==> event > evrnt handler > state > render
-7. 當我們需要 function 傳給 sub component 時, 需要執行 **this.handler.bind(this)** 重新 bind(this), 不然 this 會形成 undefined
+- All DOM properties and attributes (including event handlers) should be camelCased to be consistent with standard JavaScript style
+- React 中的 state 有點像是 component 中的 local variable，它是由 component 自己本身來維護它的值
+- React 中的 props 是唯讀, 不可以被再設定值, 當 props 在 component 中被設定成 any, 此時表示在 caller 中, 可以任意指定參數, 並不會有型態的檢查
+- 當在 component 中加入 input 時, 若是沒有設定 onChange, 此時需要指定此 input 為 readonly
+- 當一個 event 被 trigger 時, 更新的 state, 而 state 的變化進而要求 component 重新 render 
+- Unidirectional Data Flow  ==> event > evrnt handler > state > render
+- 當我們需要 function 傳給 sub component 時, 需要執行 **this.handler.bind(this)** 重新 bind(this), 不然 this 會形成 undefined. 另一種方式是用 arrow function 
+- interface 是 TypeScrpt 的宣告, 可以在 compile 階段檢查呼叫 Component時, 是否有提供正確的參數
+ 
   
 
 

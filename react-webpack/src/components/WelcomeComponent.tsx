@@ -19,11 +19,7 @@ class Welcome extends React.Component<any, any> {
         this.setState({name: event.target.value});
     }
 
-    handleOnNameChange2 = (event) => {
-        this.setState({name: event.target.value});
-    }
-
-    public handleOnAgeChange(event: any): void {
+   public handleOnAgeChange = (event : any) => {
         this.setState({age: event.target.value});
     }
 
@@ -34,7 +30,7 @@ class Welcome extends React.Component<any, any> {
                 <Hello handleAgeChange = {this.handleOnAgeChange }/>
                 <button name="Update" onClick= {e=> this.handleOnBtnClick(e)}  value="Update"> Update</button>
                 <input name="nameText" onChange = {e=> this.handleOnNameChange(e)} />
-                <input name="nameText2" onChange = {e=> this.handleOnNameChange2(e)} />
+                <input name="ageText" onChange = {e=> this.handleOnAgeChange(e)} />
                 <h5> defaultName: {this.state.name} </h5>
                 <h5> defaultAge: {this.state.age} </h5>
             </div>
