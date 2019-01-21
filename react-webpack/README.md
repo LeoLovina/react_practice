@@ -3,11 +3,13 @@
 > npm init
 * 安裝 webpack, Webpack 是一個工具, 可以用來將 JS code 及其相依的 resource, 放到單一的 js 中.
 > npm install -g webpack
+
 > npm install --save-dev webpack-cli 
 你可以利用 npx webpack-cli init 來初始化 
 
 * 加入 React 及 React-DOM
 > npm install --save react react-dom @types/react @types/react-dom
+
 > npm install --save-dev typescript awesome-typescript-loader source-map-loader
 * typescript 會依據 tsconfig.json 的設定, 來進行 compile.
 
@@ -91,6 +93,13 @@ interface HelloInterface{
      }
 
 ```
+以上先倒在 TypeScript 編譯之後, 會在 constructor 中產生給下的程式碼
+```
+ this.handleOnAgeChange = (event) => {
+            this.setState({ age: event.target.value });
+        };
+```
+
 
 # State
 在component的 constructor 設定state初始值
