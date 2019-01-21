@@ -8,7 +8,7 @@ class Welcome extends React.Component<any, any> {
         this.state = {name: this.props.defaultName,
             age: this.props.defaultAge
         };
-        this.handleOnAgeChange = this.handleOnAgeChange.bind(this);
+      //  this.handleOnAgeChange = this.handleOnAgeChange.bind(this);
     }
 
     public handleOnBtnClick(event: any): void {
@@ -19,15 +19,18 @@ class Welcome extends React.Component<any, any> {
         this.setState({name: event.target.value});
     }
 
-   public handleOnAgeChange = (event : any) => {
-        this.setState({age: event.target.value});
-    }
+    // public handleOnAgeChange(event : any): void {
+    //     this.setState({age: event.target.value});
+    // }
+    public handleOnAgeChange = (event : any) => {
+         this.setState({age: event.target.value});
+     }
 
     render() {
         console.log('Welcome render');
         return (
             <div>
-                <Hello handleAgeChange = {this.handleOnAgeChange }/>
+                <Hello handleAgeChange = {this.handleOnAgeChange} defaultColor='green'/>
                 <button name="Update" onClick= {e=> this.handleOnBtnClick(e)}  value="Update"> Update</button>
                 <input name="nameText" onChange = {e=> this.handleOnNameChange(e)} />
                 <input name="ageText" onChange = {e=> this.handleOnAgeChange(e)} />

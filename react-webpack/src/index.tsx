@@ -9,8 +9,8 @@ const root = document.getElementById('example');
 
 ReactDOM.render(
     <div>
-        <Hello />  
-        <Hello defaultName="Mini"/>  
+        {/* <Hello />   */}
+        {/* <Hello defaultName="Mini"/>   */}
         <img src="./src/images/mini.jpg" alt="mini"/>
         <UserComponent name="Leo" age={105} address="I don't know" dob={new Date()} />
         <Welcome defaultName="Monkey D"  defaultAge='18'/>

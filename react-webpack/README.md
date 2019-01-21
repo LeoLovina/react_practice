@@ -47,6 +47,50 @@ export default class HelloWorld extends React.Component<HelloInterface, {}> {
   <HelloWorld defaultName='World' />
 </div>
 ```
+# 限定可以輸入的值
+在 Interface中, 我們可以限定可以輸入的值, 例如底下範例:
+```
+interface HelloInterface{
+  defaultName: string;
+  defaultColor?: 'blue' | 'green' | 'red';
+  defaultType?: 'button' | 'submit';
+  handleAgeChange(event: any): void;
+}
+```
+# 使用 Arrow function 
+範例一
+```
+    constructor(props: any) {
+        super(props);
+        this.handleOnAgeChange = this.handleOnAgeChange.bind(this);
+    }
+
+    public handleOnAgeChange(event : any): void {
+        this.setState({age: event.target.value});
+    }   
+
+  render() {
+        return (
+            <div>
+                <Hello handleAgeChange = {this.handleOnAgeChange} defaultColor='green'/>
+            </div>
+        )
+    }     
+```
+在上範例中, 若是沒有設定
+> `this.handleOnAgeChange = this.handleOnAgeChange.bind(this);` 
+
+執行時 Hello 呼叫 `handleAgeChange` 會出現錯誤 
+> `Uncaught TypeError: this.setState is not a function`
+為了避免這種不問題, 可以利用 arrow function, 如下範例
+
+範例二
+
+    public handleOnAgeChange = (event : any) => {
+         this.setState({age: event.target.value});
+     }
+
+```
 
 # State
 在component的 constructor 設定state初始值
