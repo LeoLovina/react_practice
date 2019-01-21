@@ -85,7 +85,7 @@ interface HelloInterface{
 為了避免這種不問題, 可以利用 arrow function, 如下範例
 
 範例二
-
+```
     public handleOnAgeChange = (event : any) => {
          this.setState({age: event.target.value});
      }
