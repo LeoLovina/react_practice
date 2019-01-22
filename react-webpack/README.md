@@ -132,6 +132,74 @@ interface HelloInterface{
     );
   }
 ```
+# TypeScript compile 成 Javascript 前後比較
+## Case 1
+- TypeScript 
+```
+export default class Square extends React.Component<any, any>{
+    constructor(props:any){
+        super(props);
+    }
+    render(){
+        return (
+        <button>{this.props.value}</button>
+        );
+    }
+}
+```
+- JavaScript
+```
+class Square extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (React.createElement("button", null, this.props.value)
+        );
+    }
+}
+exports.default = Square;
+```
+在 TypeScript 中, 可以提供型態的檢查, 可是當轉成 JavaScript 之後, 是沒有型態
+
+## Case 2
+- TypeScript 
+```
+interface SquareInterface {
+    squareNumber: number
+}
+
+export default class Square extends React.Component<SquareInterface, any>{
+    constructor(props:SquareInterface){
+        super(props);
+        this.state = {
+            value: props.squareNumber       
+        };
+    }
+    render(){
+        return (
+             <button>{this.state.value}</button>
+        );
+    }
+}
+```
+- JavaScript
+```
+class Square extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: props.squareNumber
+        };
+    }
+    render() {
+        return (
+        React.createElement("button", null, this.state.value));
+    }
+}
+exports.default = Square;
+```
+從這個範例中, 我們可以看到 SquareInterface 並沒有實際產生
 
 # 注意事項
 - All DOM properties and attributes (including event handlers) should be camelCased to be consistent with standard JavaScript style
@@ -142,6 +210,9 @@ interface HelloInterface{
 - Unidirectional Data Flow  ==> event > evrnt handler > state > render
 - 當我們需要 function 傳給 sub component 時, 需要執行 **this.handler.bind(this)** 重新 bind(this), 不然 this 會形成 undefined. 另一種方式是用 arrow function 
 - interface 是 TypeScrpt 的宣告, 可以在 compile 階段檢查呼叫 Component時, 是否有提供正確的參數
+- 在 TypeScript 中, 不需要特別指定 public 或是 private,  public 或是 private 是 TypeScript 在 Compile 時, 模擬出來的效果, 在 runtime 時, 都是可以存取得到, 若要指定一個 property/ function 為 private, 請在 name 前 加上 _ `_someProp`
+
+
  
   
 

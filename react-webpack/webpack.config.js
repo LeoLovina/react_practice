@@ -1,10 +1,15 @@
 const path = require('path');
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: "./src/indexGame.tsx",
     output: {
-        filename: "bundle.js",
+        filename: "bundleGame.js",
         path: __dirname + "/dist"
-    },
+    },    
+    // entry: "./src/index.tsx",
+    // output: {
+    //     filename: "bundle.js",
+    //     path: __dirname + "/dist"
+    // },
     // entry: {
     //     'moduleAIndex': './src/moduleAIndex.tsx',
     //     'moduleBIndex': './src/moduleBIndex.tsx',
