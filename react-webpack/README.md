@@ -84,7 +84,7 @@ interface HelloInterface{
 
 執行時 Hello 呼叫 `handleAgeChange` 會出現錯誤 
 > `Uncaught TypeError: this.setState is not a function`
-為了避免這種不問題, 可以利用 arrow function, 如下範例
+為了避免這種問題, 可以利用 arrow function, 如下範例
 
 範例二
 ```
@@ -93,7 +93,7 @@ interface HelloInterface{
      }
 
 ```
-以上先倒在 TypeScript 編譯之後, 會在 constructor 中產生給下的程式碼
+以上範例中 TypeScript 編譯之後, 會在 constructor 中產生如下的程式碼
 ```
  this.handleOnAgeChange = (event) => {
             this.setState({ age: event.target.value });
@@ -115,6 +115,16 @@ interface HelloInterface{
         this.setState({name: "One Piece"});
     }
 ```
+# Stateless Functional Component
+- 在一些情形下, 因為 Functional Component 是沒有狀態, 所以有可能產生 performance issues
+- 基本的 functional component 如下
+```
+function Welcome(props) {
+ return <h1>Hello, {props.name}</h1>;
+}
+```
+但是在 TypeScript 中, 不太能直接使用
+- 目前新版的 React, 計畫將React.SFC 及 React.StatelessComponent 改為 React.FunctionComponent
 
 # Inline Styles
 在 React 中的 inline style, 並不可以用 string 直接來控制, 而是用 JSON object, 其中的 key 需要是 camelCased 的 style name, 而 value 通常是 string
@@ -132,6 +142,74 @@ interface HelloInterface{
     );
   }
 ```
+# TypeScript compile 成 Javascript 前後比較
+## Case 1
+- TypeScript 
+```
+export default class Square extends React.Component<any, any>{
+    constructor(props:any){
+        super(props);
+    }
+    render(){
+        return (
+        <button>{this.props.value}</button>
+        );
+    }
+}
+```
+- JavaScript
+```
+class Square extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (React.createElement("button", null, this.props.value)
+        );
+    }
+}
+exports.default = Square;
+```
+在 TypeScript 中, 可以提供型態的檢查, 可是當轉成 JavaScript 之後, 是沒有型態
+
+## Case 2
+- TypeScript 
+```
+interface SquareInterface {
+    squareNumber: number
+}
+
+export default class Square extends React.Component<SquareInterface, any>{
+    constructor(props:SquareInterface){
+        super(props);
+        this.state = {
+            value: props.squareNumber       
+        };
+    }
+    render(){
+        return (
+             <button>{this.state.value}</button>
+        );
+    }
+}
+```
+- JavaScript
+```
+class Square extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: props.squareNumber
+        };
+    }
+    render() {
+        return (
+        React.createElement("button", null, this.state.value));
+    }
+}
+exports.default = Square;
+```
+從這個範例中, 我們可以看到 SquareInterface 並沒有實際產生
 
 # 注意事項
 - All DOM properties and attributes (including event handlers) should be camelCased to be consistent with standard JavaScript style
@@ -142,6 +220,29 @@ interface HelloInterface{
 - Unidirectional Data Flow  ==> event > evrnt handler > state > render
 - 當我們需要 function 傳給 sub component 時, 需要執行 **this.handler.bind(this)** 重新 bind(this), 不然 this 會形成 undefined. 另一種方式是用 arrow function 
 - interface 是 TypeScrpt 的宣告, 可以在 compile 階段檢查呼叫 Component時, 是否有提供正確的參數
+- 在 TypeScript 中, 不需要特別指定 public 或是 private,  public 或是 private 是 TypeScript 在 Compile 時, 模擬出來的效果, 在 runtime 時, 都是可以存取得到, 若要指定一個 property/ function 為 private, 請在 name 前 加上 _ `_someProp`
+- 操作 array 時, 時常需要使用 `.forEach()`, `.map()`, `.filter()`, 此時需要注意它們走行時的 context 是不同的, 需要使用 bind(this)
+> [].forEach( function(){ ..... }.bind( this ) );
+
+一般的 function, 需要指定 .bind(this), 或是先設定`this.mapHandler = this.mapHandler.bind(this);`
+```
+    mapHandler(item: any, i: number, array: any){
+        console.log(this);
+    };
+    arrayData.map(this.mapHandler.bind(this));
+```
+
+
+Arrow function
+```
+    mapArrowHandler= (item: any, i: number, array: any) =>{
+        console.log(this);
+    }
+    arrayData.map(this.mapArrowHandler);
+```
+
+
+
  
   
 
