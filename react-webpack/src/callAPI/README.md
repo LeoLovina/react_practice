@@ -42,6 +42,7 @@
 - fetch 會使用 ES6 的 Promise 作回應
     - then 作為下一步
     - catch 作為錯誤回應 (404, 500…)
+
 基本語法
 ```js
     fetch("https://sheetsu.com/apis/v1.0/020b2c0f")
