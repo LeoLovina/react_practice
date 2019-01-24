@@ -212,6 +212,7 @@ exports.default = Square;
 從這個範例中, 我們可以看到 SquareInterface 並沒有實際產生
 
 # 注意事項
+- Classes are part of the ES2015 standard, which is not supported by IE. For easy backwards compatibilty (if you actually want to support IE) you can just use Babel to transpile your code to ES5.
 - All DOM properties and attributes (including event handlers) should be camelCased to be consistent with standard JavaScript style
 - React 中的 state 有點像是 component 中的 local variable，它是由 component 自己本身來維護它的值
 - React 中的 props 是唯讀, 不可以被再設定值, 當 props 在 component 中被設定成 any, 此時表示在 caller 中, 可以任意指定參數, 並不會有型態的檢查
