@@ -212,6 +212,7 @@ exports.default = Square;
 從這個範例中, 我們可以看到 SquareInterface 並沒有實際產生
 
 # 注意事項
+- Classes are part of the ES2015 standard, which is not supported by IE. For easy backwards compatibilty (if you actually want to support IE) you can just use Babel to transpile your code to ES5.
 - All DOM properties and attributes (including event handlers) should be camelCased to be consistent with standard JavaScript style
 - React 中的 state 有點像是 component 中的 local variable，它是由 component 自己本身來維護它的值
 - React 中的 props 是唯讀, 不可以被再設定值, 當 props 在 component 中被設定成 any, 此時表示在 caller 中, 可以任意指定參數, 並不會有型態的檢查
@@ -221,6 +222,9 @@ exports.default = Square;
 - 當我們需要 function 傳給 sub component 時, 需要執行 **this.handler.bind(this)** 重新 bind(this), 不然 this 會形成 undefined. 另一種方式是用 arrow function 
 - interface 是 TypeScrpt 的宣告, 可以在 compile 階段檢查呼叫 Component時, 是否有提供正確的參數
 - 在 TypeScript 中, 不需要特別指定 public 或是 private,  public 或是 private 是 TypeScript 在 Compile 時, 模擬出來的效果, 在 runtime 時, 都是可以存取得到, 若要指定一個 property/ function 為 private, 請在 name 前 加上 _ `_someProp`
+- 在 render 中, 若是要將 `字串` 與 `變數` 合併, 需要使用
+> {"#demo" + this.state.id}
+
 - 操作 array 時, 時常需要使用 `.forEach()`, `.map()`, `.filter()`, 此時需要注意它們走行時的 context 是不同的, 需要使用 bind(this)
 > [].forEach( function(){ ..... }.bind( this ) );
 

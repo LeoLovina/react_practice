@@ -1,23 +1,20 @@
 const path = require('path');
 module.exports = {
-    entry: "./src/indexGame.tsx",
-    output: {
-        filename: "bundleGame.js",
-        path: __dirname + "/dist"
-    },    
     // entry: "./src/index.tsx",
     // output: {
     //     filename: "bundle.js",
     //     path: __dirname + "/dist"
     // },
-    // entry: {
-    //     'moduleAIndex': './src/moduleAIndex.tsx',
-    //     'moduleBIndex': './src/moduleBIndex.tsx',
-    // },
-    // output: {
-    //     path: path.resolve(__dirname, 'dist'),
-    //     filename: '[name].js'
-    // },
+    entry: {
+        // 'moduleAIndex': './src/moduleAIndex.tsx',
+        // 'moduleBIndex': './src/moduleBIndex.tsx',
+        'indexAPITest': './src/indexAPITest.tsx',
+        'indexGame': './src/indexGame.tsx',
+    },
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].js'
+    },
     mode: "development",
     
     // Enable sourcemaps for debugging webpack's output.
