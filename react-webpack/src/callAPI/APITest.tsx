@@ -1,70 +1,50 @@
 import * as React from 'react'
+import Axios from 'axios'
+import ApiUtil from './ApiUtil'
+import * as ApiResult from './ApiResult'
 
-interface interfaceUser{
-    id: number,
-    name: string,
-    score: string
-}
-
-interface apiData {
-    error:  string,
-    isLoaded: boolean,
-    externalData:  interfaceUser[]
-}
-
-export default class APITest extends React.Component<any ,apiData> {
-    // state = {
-    //     error: '',
-    //     isLoaded: false,
-    //     externalData: [{
-    //         name:'',
-    //         age:0,
-    //         job:'Engineer'    
-    //    }]
-    // }
+export default class APITest extends React.Component<any ,ApiResult.ApiResult> {
     constructor(props: any){
         super(props)
         console.log('constructor');
     }    
 
     componentDidMount(){
+        this.setState({
+            isLoaded: false
+        })
+        this.getExternalDataAwait();
 //        this.getExternalData();
     }
 
-    // Note: 
-    // 'fetch' is only available on ES6
-    getExternalData(){
-        // console.log(this.state);
-        // // fetch("https://sheetsu.com/apis/v1.0su/f1ca9e38c5c")
-        // fetch("https://sheetsu.com/apis/v1.0/020b2c0f")
-        //    .then(function(response){
-        //        console.log(response);
-        //        let json = response.json();
-        //         if (response.status ==200){
-        //             return json;
-        //         }
-        //         else {
-        //             return json.then(Promise.reject.bind(Promise))  
-        //         }
-        //    })
-        //    .then
-        //     (
-        //         (result) => {
-        //             this.setState({
-        //                 isLoaded: true,
-        //                 externalData: result
-        //             })
-        //         },
-        //         (reason)=>{
-        //             this.setState({
-        //                 isLoaded: true,
-        //                 error: reason.error
-        //             })
-        //         }
-        //     )
-            
+    async getExternalDataAwait(){
+        let apiUtil: ApiUtil = new ApiUtil();
+        apiUtil.getDataAsync("https://sheetsu.com/apis/v1.0su/ea9eca9561fb", 
+            (result:ApiResult.ApiResult) =>{
+                console.log(result);
+                this.setState({
+                                error: result.error,
+                                isLoaded: true,
+                                data: result.data
+                            })
+            }
+        );
     }
 
+    getExternalData = () =>{
+        // need to use Arrow function as a call back function, or 'this' will be 'undefined'
+        let apiUtil: ApiUtil = new ApiUtil();
+        apiUtil.getData("https://sheetsu.com/apis/v1.0su/ea9eca9561fb", 
+            (result:ApiResult.ApiResult) =>{
+                console.log(result);
+                this.setState({
+                                error: result.error,
+                                isLoaded: true,
+                                data: result.data
+                            })
+            }
+        );
+    }
 
     render() {
         console.log(this.state);
@@ -72,7 +52,7 @@ export default class APITest extends React.Component<any ,apiData> {
         if (this.state==null)
             result = <div>Initializing ...</div>
         else {
-            const {error, isLoaded, externalData} = this.state;
+            const {error, isLoaded, data} = this.state;
             if (!isLoaded){
                 result = <div> Loading ...</div>
             }
@@ -81,7 +61,7 @@ export default class APITest extends React.Component<any ,apiData> {
             }
             else {
                 result =<ul>
-                    {externalData.map(item=>(
+                    {data.map((item:any)=>(
                         <li key={item.id}> <b>{item.name}</b> {item.score}</li>
                     ))}
                 </ul>

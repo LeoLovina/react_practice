@@ -1,6 +1,8 @@
 # component 生命週期
 參考 [react-lifecycle-methods-diagram](0http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
-# 基本 Promise 語法
+# Promise
+ES5 其有包含 Promise. 而如 jQuery 或是 Angular 則是自己實作自己的 Promisee. 在 ES5 中比較有名的 Promise 程式庫是 `Bluebird`
+## 基本語法
 ```js
     let promise = new Promise(function(resolve, reject){
         let result = {
@@ -73,6 +75,80 @@
         )
 ```
 
+# Axios 
+- 原生XHR的封裝。它有以下幾大特性：
+    - 可以在node.js中使用
+    - 支援 Promise API
+    - 支援 CSRF (cross site request forgery)
+    - 支援  intercept and cancel requests
+Axios is promise-based and thus we can take advantage of async and await for more readable asynchronous code. 
+
+## 基本語法
+```js
+    Axios.get(url)
+    .then((response)=>{
+        console.log(response);
+        if (response.status === 200){
+        }
+        else {
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
+```
+
+若是採用 async/await
+```js
+   async getExternalDataAwait(){
+        const response = await Axios.get("https://sheetsu.com/apis/v1.0su/ea9eca9561fb")
+            .catch(reason=>{
+                console.log (reason);
+                this.setState({
+                    isLoaded: true,
+                    error: reason.response.data.error
+                });
+            });
+        console.log (response);
+        // I don't why here ....If response is not assigned to another variable, TypeScript always return an error.
+        const result = response as any;
+        if (result != 'undefined'){
+            if (result.status === 200){
+                this.setState({
+                    isLoaded: true,
+                    data: result.data
+                });
+            }
+        }
+    }
+```
+
+# 注意事項
+- 當呼叫 method 時, 若有指定 call back function, 必須使用 arrow function, 否則 `this` 會是 `undefined`, 如下範例:
+
+```js
+    let apiUtil: ApiUtil = new ApiUtil();
+    apiUtil.getData("https://sheetsu.com/apis/v1.0su/ea9eca9561fb", 
+        (result:ApiResult.ApiResult) =>{
+            console.log(result);
+            this.setState({
+                            error: result.error,
+                            isLoaded: true,
+                            data: result.data
+                        })
+        }
+    );
+```
+- 警告訊息
+如果 import 時名師大小寫不一致, 會產生緩下的問題, 例如 `import Axios from 'Axios'` 及 `import Axios from 'axios'`
+```
+WARNING in ./node_modules/Axios/lib/utils.js
+There are multiple modules with names that only differ in casing.
+This can lead to unexpected behavior when compiling on a filesystem with other case-semantic
+```
+
 # free rest API
-Google Spreadsheet.
+- Google Spreadsheet.
 Have a look at Sheetsu in this link:  https://sheetsu.com/
+- https://jsonplaceholder.typicode.com/
+
