@@ -2,6 +2,7 @@ import * as React from 'react'
 import Axios from 'axios'
 import ApiUtil from './ApiUtil'
 import * as ApiResult from './ApiResult'
+// import * as bluebird  from 'bluebird';
 
 export default class APITest extends React.Component<any ,ApiResult.ApiResult> {
     constructor(props: any){
@@ -17,7 +18,7 @@ export default class APITest extends React.Component<any ,ApiResult.ApiResult> {
 //        this.getExternalData();
     }
 
-    async getExternalDataAwait(){
+    getExternalDataAwait(){
         let apiUtil: ApiUtil = new ApiUtil();
         apiUtil.getDataAsync("https://sheetsu.com/apis/v1.0su/ea9eca9561fb", 
             (result:ApiResult.ApiResult) =>{
