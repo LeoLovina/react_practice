@@ -3,10 +3,13 @@ import Square from './Square';
 
 export default class Board extends React.Component<any, any> 
 {
+
     constructor(props: any){
         super(props);
+        const arr = Array.apply(null, new Array(9)).map((elem : any, index: any ) =>  index);
         this.state = {
-            squares : Array(9).fill('O')
+            squares : arr
+            //squares : Array(9).fill('O')        // ES6 only 
         };
         // this.renderSquareByMap = this.renderSquareByMap.bind(this);
     }
