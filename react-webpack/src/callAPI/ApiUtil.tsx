@@ -42,6 +42,7 @@ export default class ApiUtil {
         });
     }
 
+    // async/ await only work on ES6
     async getDataAsync(url: string, callBack: any){
         const response = await Axios.get(url)
             .catch(reason=>{
