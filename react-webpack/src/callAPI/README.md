@@ -152,6 +152,11 @@ Failed prop type: You provided a `value` prop to a form field without an `onChan
 ```js
 <input type="text" name="searchKey" value={this.state.searchKey} /> 
 ```
+# CSS
+1. In order to import a CSS file from within a JavaScript module, you need to install and add the style-loader and css-loader 
+npm install --save-dev style-loader css-loader
+2. when a css is packed, we can use these css on all html files
+> import '../../css/style.css';
 
 
 # free rest API

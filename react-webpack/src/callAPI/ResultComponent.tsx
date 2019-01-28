@@ -1,4 +1,5 @@
-import * as React from 'react'
+import '../../css/style.css';
+import * as React from 'react';
 
 // define a functional component to display the result
 export default function Result(props : any) {
