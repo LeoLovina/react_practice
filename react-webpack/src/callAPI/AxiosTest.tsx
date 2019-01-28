@@ -41,4 +41,34 @@ export default class ApiUtil {
             }
         });
     }
+
+    // async/ await only work on ES6
+    async getDataAsync(url: string, callBack: any){
+        const response = await Axios.get(url)
+            .catch(reason=>{
+                console.log (reason);
+                let apiResult = {
+                    error: reason.response.data.error
+                }
+                if (callBack != null){
+                    callBack(apiResult);
+                }
+            });
+        console.log (response);
+        const result = response as any;
+        if (result != 'undefined'){
+            let apiResult: Result.ApiResult = new  Result.ApiResult();
+            if (result.status === 200){
+                const item = result.data;
+                apiResult.data = item;
+            }
+            else {
+                const item = result.data;
+                apiResult.error = item;
+            }
+            if (callBack != null){
+                callBack(apiResult);
+            }
+        }
+    }
 }
