@@ -2,6 +2,7 @@ import * as React from 'react'
 import Axios from 'axios'
 import ApiUtil from './ApiUtil'
 import * as ApiResult from './ApiResult'
+import Result from './ResultComponent'
 
 export default class APITest extends React.Component<any ,any> {
     constructor(props: any){
@@ -64,28 +65,7 @@ export default class APITest extends React.Component<any ,any> {
                 result =<div>Error : {error} + </div>;
             }
             else {
-                result =<table>
-                    <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>name</th>
-                        <th>score</th>
-                        <th>job</th>
-                        <th>photo</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {data.map((item:any)=>(
-                        <tr key={item.id}>
-                            <td>{item.id}</td>
-                            <td>{item.name}</td>
-                            <td>{item.score}</td>
-                            <td>{item.job}</td>
-                            <td><img src={item.photo}></img></td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
+                result = <Result data={data}></Result>
             }
         }
         return (
