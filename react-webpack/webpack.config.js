@@ -9,7 +9,8 @@ module.exports = {
         // 'moduleAIndex': './src/moduleAIndex.tsx',
         // 'moduleBIndex': './src/moduleBIndex.tsx',
         'indexAPITest': './src/indexAPITest.tsx',
-        'indexGame': './src/indexGame.tsx',
+        'indexRxjsTest': './src/indexRxjsTest.tsx',
+        'indexGame': './src/indexGame.tsx',        
     },
     output: {
         path: path.resolve(__dirname, 'dist'),

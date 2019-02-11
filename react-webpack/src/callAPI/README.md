@@ -123,6 +123,7 @@ Axios is promise-based and thus we can take advantage of async and await for mor
     }
 ```
 
+
 # 注意事項
 - 當呼叫 method 時, 若有指定 call back function, 必須使用 arrow function, 否則 `this` 會是 `undefined`, 如下範例:
 
@@ -139,6 +140,26 @@ Axios is promise-based and thus we can take advantage of async and await for mor
         }
     );
 ```
+- 當 Button 按下之後, 若是要取得 Form 中 input 的值, 一般有兩種方式
+    - 利用 state: 當設定 input control 的 onChange event. 
+    ```js
+     <input type="text" name="key" onChange={(e)=>{ this.setState({searchKey:e.target.value}) }} /> 
+    ```
+    - 利用 Form action. 
+    ```js
+    onFormSubmit = (event: any)=>{
+        event.preventDefault();
+        // get search key 
+        const searchKey = event.target[0].value;
+        // do something
+    };
+
+     <form onSubmit={e=>this.onFormSubmit(e)}>
+        <input type="text" name="searchKey" /> 
+        <button type='submit'>Search</button>
+    </form>
+    ```
+
 - 警告訊息
 如果 import 時名師大小寫不一致, 會產生問題, 例如 `import Axios from 'Axios'` 及 `import Axios from 'axios'`
 ```
