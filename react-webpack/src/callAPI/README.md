@@ -161,7 +161,7 @@ Axios is promise-based and thus we can take advantage of async and await for mor
     ```
 
 - 警告訊息
-如果 import 時名師大小寫不一致, 會產生問題, 例如 `import Axios from 'Axios'` 及 `import Axios from 'axios'`
+如果 import 時名稱大小寫不一致, 會產生問題, 例如 `import Axios from 'Axios'` 及 `import Axios from 'axios'`
 ```
 WARNING in ./node_modules/Axios/lib/utils.js
 There are multiple modules with names that only differ in casing.
