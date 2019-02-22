@@ -224,8 +224,8 @@ exports.default = Square;
 - 在 TypeScript 中, 不需要特別指定 public 或是 private,  public 或是 private 是 TypeScript 在 Compile 時, 模擬出來的效果, 在 runtime 時, 都是可以存取得到, 若要指定一個 property/ function 為 private, 請在 name 前 加上 _ `_someProp`
 - 在 render 中, 若是要將 `字串` 與 `變數` 合併, 需要使用
 > {"#demo" + this.state.id}
-
-- 操作 array 時, 時常需要使用 `.forEach()`, `.map()`, `.filter()`, 此時需要注意它們走行時的 context 是不同的, 需要使用 bind(this)
+- 使用 React, 我們應該避免混用 jQuery, 
+- 操作 array 時, 常需要使用 `.forEach()`, `.map()`, `.filter()`, 此時需要注意它們執行時的 context 是不同的, 需要使用 bind(this)
 > [].forEach( function(){ ..... }.bind( this ) );
 
 一般的 function, 需要指定 .bind(this), 或是先設定`this.mapHandler = this.mapHandler.bind(this);`

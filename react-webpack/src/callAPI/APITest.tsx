@@ -2,58 +2,62 @@ import * as React from 'react'
 import Axios from 'axios'
 import ApiUtil from './ApiUtil'
 import * as ApiResult from './ApiResult'
-// import * as bluebird  from 'bluebird';
+import Result from './ResultComponent'
 
-export default class APITest extends React.Component<any ,ApiResult.ApiResult> {
+export default class APITest extends React.Component<any ,any> {
     constructor(props: any){
-        super(props)
+        super(props);
         console.log('constructor');
+        this.state = {
+            searchKey : ''
+        }
     }    
 
     componentDidMount(){
         this.setState({
-            isLoaded: false
+            searchResult:
+            {
+                isLoaded: false
+            }
         })
-        this.getExternalDataAwait();
-//        this.getExternalData();
+       this.getExternalData();
     }
 
-    getExternalDataAwait(){
-        let apiUtil: ApiUtil = new ApiUtil();
-        apiUtil.getDataAsync("https://sheetsu.com/apis/v1.0su/ea9eca9561fb", 
-            (result:ApiResult.ApiResult) =>{
-                console.log(result);
-                this.setState({
-                                error: result.error,
-                                isLoaded: true,
-                                data: result.data
-                            })
-            }
-        );
-    }
-
-    getExternalData = () =>{
+    getExternalData = (event? : any) =>{
         // need to use Arrow function as a call back function, or 'this' will be 'undefined'
+        console.log(event);
+        let searchKey = this.state.searchKey == ''? '' : '/search?score='+this.state.searchKey;
         let apiUtil: ApiUtil = new ApiUtil();
-        apiUtil.getData("https://sheetsu.com/apis/v1.0su/ea9eca9561fb", 
+        apiUtil.getData("https://sheetsu.com/apis/v1.0su/ea9eca9561fb"+searchKey, 
             (result:ApiResult.ApiResult) =>{
                 console.log(result);
                 this.setState({
-                                error: result.error,
-                                isLoaded: true,
-                                data: result.data
+                                searchResult:
+                                { 
+                                    error: result.error,
+                                    isLoaded: true,
+                                    data: result.data
+                                }
                             })
             }
         );
     }
+
+    onFormSubmit = (event: any)=>{
+        event.preventDefault();
+        // get search key 
+        const searchKey = event.target[0].value;
+        this.setState({searchKey:searchKey}) 
+        this.getExternalData();
+    };
 
     render() {
         console.log(this.state);
         let result : any;
-        if (this.state==null)
+        if (this.state==null || this.state.searchResult==null)
             result = <div>Initializing ...</div>
         else {
-            const {error, isLoaded, data} = this.state;
+            const {error, isLoaded, data} = this.state.searchResult;
             if (!isLoaded){
                 result = <div> Loading ...</div>
             }
@@ -61,16 +65,25 @@ export default class APITest extends React.Component<any ,ApiResult.ApiResult> {
                 result =<div>Error : {error} + </div>;
             }
             else {
-                result =<ul>
-                    {data.map((item:any)=>(
-                        <li key={item.id}> <b>{item.name}</b> {item.score}</li>
-                    ))}
-                </ul>
+                result = <Result data={data}></Result>
             }
         }
         return (
             <div> 
                 <h1>WEB API Test</h1>
+                <div>Score: </div>
+                <input type="text" name="key" 
+                    onChange={(e)=>{ 
+                        this.setState({searchKey:e.target.value}) 
+                    }} 
+                    /> 
+                <button onClick={e=>this.getExternalData(e)}>Search</button>
+
+                <form onSubmit={e=>this.onFormSubmit(e)}>
+                    <div>Score: </div>
+                    <input type="text" name="searchKey" /> 
+                    <button type='submit'>Search</button>
+                </form>
                 {result}
             </div> 
             )     

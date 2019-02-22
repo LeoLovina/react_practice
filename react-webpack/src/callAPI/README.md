@@ -123,6 +123,7 @@ Axios is promise-based and thus we can take advantage of async and await for mor
     }
 ```
 
+
 # 注意事項
 - 當呼叫 method 時, 若有指定 call back function, 必須使用 arrow function, 否則 `this` 會是 `undefined`, 如下範例:
 
@@ -139,13 +140,45 @@ Axios is promise-based and thus we can take advantage of async and await for mor
         }
     );
 ```
+- 當 Button 按下之後, 若是要取得 Form 中 input 的值, 一般有兩種方式
+    - 利用 state: 當設定 input control 的 onChange event. 
+    ```js
+     <input type="text" name="key" onChange={(e)=>{ this.setState({searchKey:e.target.value}) }} /> 
+    ```
+    - 利用 Form action. 
+    ```js
+    onFormSubmit = (event: any)=>{
+        event.preventDefault();
+        // get search key 
+        const searchKey = event.target[0].value;
+        // do something
+    };
+
+     <form onSubmit={e=>this.onFormSubmit(e)}>
+        <input type="text" name="searchKey" /> 
+        <button type='submit'>Search</button>
+    </form>
+    ```
+
 - 警告訊息
-如果 import 時名師大小寫不一致, 會產生緩下的問題, 例如 `import Axios from 'Axios'` 及 `import Axios from 'axios'`
+如果 import 時名稱大小寫不一致, 會產生問題, 例如 `import Axios from 'Axios'` 及 `import Axios from 'axios'`
 ```
 WARNING in ./node_modules/Axios/lib/utils.js
 There are multiple modules with names that only differ in casing.
 This can lead to unexpected behavior when compiling on a filesystem with other case-semantic
 ```
+- 警告訊息
+當指定一個 input, 且設定了 value 是來自 state, 若 沒有設定 onChange, 就會出現下列警告訊息
+Failed prop type: You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. 
+```js
+<input type="text" name="searchKey" value={this.state.searchKey} /> 
+```
+# CSS
+1. In order to import a CSS file from within a JavaScript module, you need to install and add the style-loader and css-loader 
+npm install --save-dev style-loader css-loader
+2. when a css is packed, we can use these css on all html files
+> import '../../css/style.css';
+
 
 # free rest API
 - Google Spreadsheet.
