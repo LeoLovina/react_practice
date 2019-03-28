@@ -1,19 +1,23 @@
 const path = require('path');
 module.exports = {
-    //entry: "./src/index.tsx",
+    // entry: "./src/index.tsx",
     // output: {
     //     filename: "bundle.js",
     //     path: __dirname + "/dist"
     // },
     entry: {
-        'moduleAIndex': './src/moduleAIndex.tsx',
-        'moduleBIndex': './src/moduleBIndex.tsx',
+        // 'moduleAIndex': './src/moduleAIndex.tsx',
+        // 'moduleBIndex': './src/moduleBIndex.tsx',
+        'indexAPITest': './src/indexAPITest.tsx',
+        'indexRxjsTest': './src/indexRxjsTest.tsx',
+        'indexGame': './src/indexGame.tsx',        
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js'
     },
-
+    mode: "development",
+    
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
 
@@ -28,7 +32,14 @@ module.exports = {
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }
         ]
     },
 
@@ -36,8 +47,8 @@ module.exports = {
     // assume a corresponding global variable exists and use that instead.
     // This is important because it allows us to avoid bundling all of our
     // dependencies, which allows browsers to cache those libraries between builds.
-    // externals: {
-    //     "react": "React",
-    //     "react-dom": "ReactDOM"
-    // }
+    externals: {
+        "react": "React",
+        "react-dom": "ReactDOM"
+    }
 };
