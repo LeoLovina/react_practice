@@ -11,6 +11,7 @@ module.exports = {
         'indexAPITest': './src/indexAPITest.tsx',
         'indexRxjsTest': './src/indexRxjsTest.tsx',
         'indexGame': './src/indexGame.tsx',        
+        'indexRoute': './src/indexRoute.tsx',        
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
