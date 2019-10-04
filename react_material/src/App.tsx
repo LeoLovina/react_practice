@@ -1,11 +1,21 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Appar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
+      <Appar color="primary" position="static">
+        <Toolbar>
+          <Typography variant="title" color="inherit">
+            My Header
+          </Typography>
+        </Toolbar>
+      </Appar>
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -18,7 +28,7 @@ const App: React.FC = () => {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }
