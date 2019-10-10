@@ -5,7 +5,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     - npx create-react-app app_name --typescript
 - install Material UI framework
     - npm install @material-ui/core
-
+- install material-ui/icons
+    - npm install @material-ui/icons
 ## Available Scripts
 
 In the project directory, you can run:

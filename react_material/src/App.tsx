@@ -4,31 +4,20 @@ import './App.css';
 import Appar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
+import SignIn from './Login';
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <Appar color="primary" position="static">
         <Toolbar>
-          <Typography variant="title" color="inherit">
+          <Typography variant="caption" color="inherit">
             My Header
           </Typography>
         </Toolbar>
       </Appar>
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
+
+      <SignIn></SignIn>
     </div>
   );
 }
