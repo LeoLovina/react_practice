@@ -7,6 +7,35 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     - npm install @material-ui/core
 - install material-ui/icons
     - npm install @material-ui/icons
+
+-- install react-test-renderer 
+    - JavaScript version
+        - npm install @react-test-renderer   
+    - TypeScript version
+        - npm install @types/react-test-renderer       
+-- How to debug test script
+    - https://create-react-app.dev/docs/debugging-tests
+    - Add `"test:debug": "react-scripts --inspect-brk test --runInBand --no-cache"` to package.json-> scripts
+    - add `debugger` on .test.tsx (or js)
+    - run `npm run test:debug`
+    - open `about:inspect` on Chrome
+    - inspect process
+
+# Note
+-  In C#, every property and field without an explicit access modifier is private. In TypeScript it's public, obviously.
+
+- disable `implicitly has an 'any' type. `
+https://stackoverflow.com/questions/47848778/parameter-implicitly-has-an-any-type?rq=1
+    - edit the tsconfig.js
+```
+// disable this rule:
+// "strict": true,
+
+// enable this rule:
+"noImplicitAny": false
+```
+
+
 ## Available Scripts
 
 In the project directory, you can run:

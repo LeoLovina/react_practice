@@ -4,7 +4,9 @@ import './App.css';
 import Appar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
-import SignIn from './Login';
+import SignIn from './SignIn';
+import LinkTo from './components/LinkToComponent/LinkTo';
+
 
 const App: React.FC = () => {
   return (
@@ -16,7 +18,7 @@ const App: React.FC = () => {
           </Typography>
         </Toolbar>
       </Appar>
-
+      <LinkTo page="100" >news.kimo.com.tw</LinkTo>
       <SignIn></SignIn>
     </div>
   );
