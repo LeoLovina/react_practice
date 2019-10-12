@@ -12,7 +12,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
     - JavaScript version
         - npm install @react-test-renderer   
     - TypeScript version
-        - npm install @types/react-test-renderer       
+        - npm install @types/react-test-renderer      
+
+-- install redux
+    - npm install --save @types/react-redux
 -- How to debug test script
     - https://create-react-app.dev/docs/debugging-tests
     - Add `"test:debug": "react-scripts --inspect-brk test --runInBand --no-cache"` to package.json-> scripts

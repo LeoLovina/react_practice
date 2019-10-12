@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography'
 import SignIn from './SignIn';
 import LinkTo from './components/LinkToComponent/LinkTo';
 
-
 const App: React.FC = () => {
   return (
     <div className="App">
