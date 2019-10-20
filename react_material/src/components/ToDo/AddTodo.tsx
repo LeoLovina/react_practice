@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addTodo } from "../../redux/actions";
+import { addTodo } from "../../redux/actions/TodoActions";
 
 class AddTodo extends React.Component<any, any> {
   constructor(props :any) {
@@ -13,13 +13,21 @@ class AddTodo extends React.Component<any, any> {
   };
 
   handleAddTodo = () => {
+    // dispatches actions to add todo
     this.props.addTodo(this.state.input);
+
+    // sets state back to empty string
     this.setState({ input: "" });
   };
 
   render() {
     return (
       <div>
+        {/* <h1>Get Pokemons</h1>
+        <button onClick={getPokemons}>
+        Get Pokemons
+        </button> */}
+        <hr></hr>
         <input
           onChange={e => this.updateInput(e.target.value)}
           value={this.state.input}
@@ -32,7 +40,14 @@ class AddTodo extends React.Component<any, any> {
   }
 }
 
+
+// addTodo is an action defined in actions.tsx
+
+const mapDispatchToProps = {
+  addTodo
+}
+
 export default connect(
   null,
-  { addTodo }
+  mapDispatchToProps
 )(AddTodo);

@@ -5,6 +5,7 @@ import Todo from "./Todo";
 import { getTodosByVisibilityFilter } from "../../redux/selectors";
 import { VISIBILITY_FILTERS } from "../../constants/VisibilityFilter";
 
+// UI component implementation
 const TodoList = ({ todos }) => (
   <ul className="todo-list">
     {todos && todos.length

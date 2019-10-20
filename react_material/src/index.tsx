@@ -5,12 +5,13 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import configureStore from "./redux/store";
 
 import ToDoApp from "./ToDoApp";
 
 //ReactDOM.render(<App />, document.getElementById('root'));
 
+const store = configureStore()
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>
