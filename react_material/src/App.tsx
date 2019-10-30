@@ -6,10 +6,14 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import SignIn from './SignIn';
 import LinkTo from './components/LinkToComponent/LinkTo';
+import Downlink from './components/Download/Downlink';
+import Base64Image from './components/Base64/Base64Image';
 
 const App: React.FC = () => {
   return (
     <div className="App">
+      <Base64Image/>
+      {/* <Downlink></Downlink>
       <Appar color="primary" position="static">
         <Toolbar>
           <Typography variant="caption" color="inherit">
@@ -18,7 +22,7 @@ const App: React.FC = () => {
         </Toolbar>
       </Appar>
       <LinkTo page="100" >news.kimo.com.tw</LinkTo>
-      <SignIn></SignIn>
+      <SignIn></SignIn> */}
     </div>
   );
 }

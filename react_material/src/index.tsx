@@ -9,16 +9,16 @@ import configureStore from "./redux/store";
 
 import ToDoApp from "./ToDoApp";
 
-//ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
-const store = configureStore()
-const rootElement = document.getElementById("root");
-ReactDOM.render(
-  <Provider store={store}>
-    <ToDoApp />
-  </Provider>,
-  rootElement
-);
+// const store = configureStore()
+// const rootElement = document.getElementById("root");
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <ToDoApp />
+//   </Provider>,
+//   rootElement
+// );
 
 
 
