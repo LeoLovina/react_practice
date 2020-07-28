@@ -1,4 +1,5 @@
 # 步驟
+https://www.valentinog.com/blog/babel/
 * 初始化, 建立 package.json
 > npm init
 * 安裝 webpack, Webpack 是一個工具, 可以用來將 JS code 及其相依的 resource, 放到單一的 js 中.
@@ -7,10 +8,91 @@
 > npm install --save-dev webpack-cli 
 你可以利用 npx webpack-cli init 來初始化 
 
-* 加入 React 及 React-DOM
-> npm install --save react react-dom @types/react @types/react-dom
+## modify package.json
+```json
+"scripts": {
+  "build": "webpack --mode production"
+}
+```
+You can run `npm run build`
 
+## Add babel
+> npm i @babel/core babel-loader @babel/preset-env @babel/preset-react --save-dev
+
+create `.babelrc`
+``` json
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
+```
+## create `webpack.config.js`
+``` json
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      }
+    ]
+  }
+};
+```
+## Add React 及 React-DOM
+> npm install --save react react-dom @types/react @types/react-dom
 > npm install --save-dev typescript awesome-typescript-loader source-map-loader
+
+>npm i react react-dom
+
+## html-webpack-plugin and html-loader
+` npm i html-webpack-plugin html-loader --save-dev`
+
+## updare webpack.config
+```java 
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader"
+          }
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: "./src/index.html",
+      filename: "./index.html"
+    })
+  ]
+};
+```
+
+## webpack dev server
+` npm i webpack-dev-server --save-dev `
+``` java
+"scripts": {
+  "start": "webpack-dev-server --open --mode development",
+  "build": "webpack --mode production"
+}
+```
+
+
 * typescript 會依據 tsconfig.json 的設定, 來進行 compile.
 
 # 如何傳送 parameter 
