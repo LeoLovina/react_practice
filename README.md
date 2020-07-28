@@ -17,6 +17,8 @@ React 使用 Virtual DOM 來處理頁面渲染(page rendering), 而不是直接�
 npm install -g create-react-app
 * create-react-app my-app
     * create-react-app my-app --scripts-version=react-scripts-ts
+* typescript version 
+    * npx create-react-app app_name --typescript
 # React Component
 * 實作 render()
 * Input: 透過 this.props 取得輸入的參數
