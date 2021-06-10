@@ -15,7 +15,7 @@ class App extends React.Component {
         <Route path="/User" component= {User}/>
         <Route path="/user/:id" component={UserDetail} />
         <Route path="/Contact">
-          <Contact id={1} name={'haha'} />
+          <Contact page={1} name={'haha'} />
           </Route>
       </div>
     </Router>
