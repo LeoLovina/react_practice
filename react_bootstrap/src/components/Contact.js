@@ -21,9 +21,16 @@ export default function Contact({ page, name }) {
     const testRedirect = () => {
         setRedirect(!redirect);
     }
+
+  
+    const availableHours = ({index}) =>{
+        return (<div>haha</div>);
+      }
+    
     return (
         <div>
             <h1>react hook</h1>
+            {availableHours(1)}
             <Container fluid>
                 <Row>
                     <Col sm={8}>
@@ -58,11 +65,6 @@ export default function Contact({ page, name }) {
                     </Col>
                 </Row>
             </Container>
-            <Button>This is default button</Button>
-            <Button variant="secondary" size="sm" disabled>Secondary</Button>
-            <Button variant="success">Success</Button>
-            <Button variant="info">Info</Button>
-
             <Switch>
                 <Route exact path={path}>
                     <h3>Please select a topic.</h3>

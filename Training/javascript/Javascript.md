@@ -54,7 +54,39 @@ funciton sortArgs(...args){
 - Easily extract array elements or object properties and store them in varaibles.
     - array destructuring
     ``` javascript
-    [a,b]
+    [a,b] = ['Hello','Max']
+    console.log(a);  // Hello
+    console.log(b);  // Max
+
+    const numbers = [1,2,3,4];
+    [n1,,n3] = numbers;     // no n2 here
+    console.log(n1,n3)
+
+
+    let {birthday} = {name:'Max', birthday: { year:2000, month:0}}; 
+    console.log(birthday)   // will be { year:2000, month:0}
     ```
 
+# reference
+- primitive types: copy the value 
+- objects and arrays are reference types
+``` javascript
+const person = {
+  name: 'Max'
+}
 
+// secondPerson and person point to the same object
+const secondPerson = person;
+
+// user spread operator to copy the object
+const thirdPerson = {
+  ...person
+};
+
+person.name = 'Leo';
+
+console.log(secondPerson.name)  // show Leo
+console.log(thirdPerson.name)   // show Max     
+```
+
+# Array function
