@@ -25,6 +25,10 @@ function Component(props){
 }
 ```
 
+# sub folder
+- general user interface component
+- feature specific component
+
 
 
 
