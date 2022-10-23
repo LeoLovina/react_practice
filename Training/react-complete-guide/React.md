@@ -39,10 +39,78 @@ function Component(props){
     - the first element is the current state value. (for read state's value)
     - the second element is a function for updating that. (for write state's value)
     - example ``` const [title, setTitle] = useState(props.title) ```
-- When a state's vaule is changed, React will re-evaluate the component.
+- When a state's value is changed, React will re-evaluate the component.
 - State is separated on a per component instance basis.
+- use state with basic type.
+    ``` javascript 
+    const [enteredTitle, setEnterdTitle] = useState(''); 
+    const titleChangeHandler = (event) => {
+    setEnterdTitle(event.target.value);
+    }; 
+    ```
+- use state with object
+    ``` javascript
+    const [userInput, setUserInput] = useState({
+        enteredTitle: '',
+        enteredAmount: 0,
+        enteredDate: ''
+    }); 
+    ``` 
+    If you only update the value with ``` setUserInput({ enteredTitle : event.target.value }) ```, then the other values will be lose. You need to use spread operator to pulls out all the key value pairs. and adds them to the new object. 
+    ``` javascript
+    const titleChangeHandler = (event) => {
+        setUserInput({
+            ...useState,
+            enteredTitle : event.target.value
+        })
+    };  
+    ```
+    Reacts schedules state updates, it doesn't perform them instantly. The above update is depends on the previous state value. It could be depending on an outdated or incorrect state snapshot. The following approach can have React guarantee that the state snapshot it gives you here in this inner function, will always be the latest state snapshot,
+    ``` javascript 
+        const titleChangeHandler = (event) => {
+        setUserInput((preState)=> {
+            return {...preState,  enteredTitle : event.target.value}
+        });
+    };
+    ```
+    We should use this function syntax here whenever your state update depends on the previous state.
 
+# Pass data from child to parent
+Parent
+``` javascript
+const NewExpense = () => {
+    const saveExpenseDataHandler = (enteredExpenseDate) =>{
+        const expendData = {
+            ...enteredExpenseDate,
+            id: Math.random().toString()
+        }
+    };
 
+    return <div className="new-expense">
+        <ExpenseForm onSaveExpenseDataHandler={saveExpenseDataHandler} /> 
+    </div>
+}
+```
+Child
+``` javascript
+const ExpenseForm = (props) => {
+    const submitHandler = (event) => {
+        event.preventDefault();
+        const expenseData = {
+            title: enteredTitle,
+            amount: enteredAmount,
+            date: new Date(enteredDate)
+        }
+        props.onSaveExpenseDataHandler(expenseData);
+        setEnterdTitle('');
+        setEnterdAmount('');
+        setEnterdDate('');
+    };
+
+    return <form onSubmit={submitHandler}>
+    </form>
+};
+```
 
 
     
