@@ -74,8 +74,10 @@ function Component(props){
     };
     ```
     We should use this function syntax here whenever your state update depends on the previous state.
+-  typically you end up with less state full components than with state less components. Because you wanna split up your application into small reusable pieces and most pieces, most components indeed will only focus on outputting something,
 
-# Pass data from child to parent
+on having some JSX code,
+# Pass data from child to parent (lift the start up)
 Parent
 ``` javascript
 const NewExpense = () => {
@@ -102,15 +104,26 @@ const ExpenseForm = (props) => {
             date: new Date(enteredDate)
         }
         props.onSaveExpenseDataHandler(expenseData);
-        setEnterdTitle('');
-        setEnterdAmount('');
-        setEnterdDate('');
     };
 
     return <form onSubmit={submitHandler}>
     </form>
 };
 ```
+# Rending Lists & Conditional Content
+- map
+    - before
+    ``` javascript 
+    <ExpenseItem title={props.items[0].title} amount={props.items[0].amount} date={props.items[0].date}/>
+    <ExpenseItem title={props.items[1].title} amount={props.items[1].amount} date={props.items[1].date}/>
+    <ExpenseItem title={props.items[2].title} amount={props.items[2].amount} date={props.items[2].date}/>
+    ```
+    - after
+    ``` javascript 
+    {props.items.map(
+        (expense, index)=> <ExpenseItem key={index} title={expense.title} amount={expense.amount} date={expense.date}/>
+    )}
+    ```
 
 
     
