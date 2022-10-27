@@ -124,7 +124,18 @@ const ExpenseForm = (props) => {
         (expense, index)=> <ExpenseItem key={index} title={expense.title} amount={expense.amount} date={expense.date}/>
     )}
     ```
-
-
+- unique id in the list item
+    - Good: use uniqie id to identify the item.
+    ``` javascript 
+    props.items.map(
+        (expense, index)=> <ExpenseItem key={expense.id} title={expense.title} amount={expense.amount} date={expense.date}/>
+    )
+    ```
+    - Bad: this index is not always given to the same item.
+    ``` javascript 
+    props.items.map(
+        (expense, index)=> <ExpenseItem key={index} title={expense.title} amount={expense.amount} date={expense.date}/>
+    )    
+    ```
     
 
