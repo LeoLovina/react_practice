@@ -137,5 +137,30 @@ const ExpenseForm = (props) => {
         (expense, index)=> <ExpenseItem key={index} title={expense.title} amount={expense.amount} date={expense.date}/>
     )    
     ```
-    
+- having a lean JSX snippet
+    - Good
+    ``` javascript 
+        const expenseContent = filteredExpenses.length === 0 ?
+            <p>No expenses found</p> :
+            filteredExpenses.map(
+                (expense, index) => <ExpenseItem key={expense.id} title={expense.title} amount={expense.amount} date={expense.date} />
+            )
+        return (
+        <div>
+            {expenseContent}
+        </div>
+    )
+    ```
+    - Bad
+    ``` javascript 
+    return (
+        <div>
+            {filteredExpenses.length === 0 ?
+                <p>No expenses found</p> :
+                filteredExpenses.map(
+                    (expense, index) => <ExpenseItem key={expense.id} title={expense.title} amount={expense.amount} date={expense.date} />
+                )}
+        </div>
+    )
+    ```
 

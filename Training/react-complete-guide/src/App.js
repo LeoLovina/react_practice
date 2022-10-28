@@ -16,7 +16,6 @@ const App = () => {
     setExpenses((prevExpenses)=> {
       return [expense, ...prevExpenses]
     });
-    // setExpenses([expense, ...expenses]);
   }
 
   return (
