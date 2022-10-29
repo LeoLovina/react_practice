@@ -161,7 +161,8 @@ const ExpenseForm = (props) => {
         </div>
     )
     ```
-# Style attribute
+# Conditional & Dynamic Styles
+## Style attribute
 ``` { style object} ```. 
 - The style object is a JavaScript object. 
 - camelCased Property Names
@@ -169,4 +170,8 @@ const ExpenseForm = (props) => {
 ``` <div className="chart-bar__fill" style={{ height: barFillHeight, backgroundColor: 'red' }}></div> ``` 
     - the style object is ``` { height: barFillHeight, backgroundColor: 'red' } ```
     - Use backgroundColor instead of background-color
+
+## Styling component
+- scoping styles to components, so for setting up styles only affect the component
+- global styles.
 
