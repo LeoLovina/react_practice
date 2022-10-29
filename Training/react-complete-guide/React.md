@@ -74,9 +74,7 @@ function Component(props){
     };
     ```
     We should use this function syntax here whenever your state update depends on the previous state.
--  typically you end up with less state full components than with state less components. Because you wanna split up your application into small reusable pieces and most pieces, most components indeed will only focus on outputting something,
-
-on having some JSX code,
+-  typically you end up with less state full components than with state less components. Because you wanna split up your application into small reusable pieces and most pieces, most components indeed will only focus on outputting something, on having some JSX code,
 # Pass data from child to parent (lift the start up)
 Parent
 ``` javascript
@@ -138,7 +136,7 @@ const ExpenseForm = (props) => {
     )    
     ```
 - having a lean JSX snippet
-    - Good
+    - Better
     ``` javascript 
         const expenseContent = filteredExpenses.length === 0 ?
             <p>No expenses found</p> :
@@ -151,7 +149,7 @@ const ExpenseForm = (props) => {
         </div>
     )
     ```
-    - Bad
+    - Not good
     ``` javascript 
     return (
         <div>
@@ -163,4 +161,12 @@ const ExpenseForm = (props) => {
         </div>
     )
     ```
+# Style attribute
+``` { style object} ```. 
+- The style object is a JavaScript object. 
+- camelCased Property Names
+- For example, 
+``` <div className="chart-bar__fill" style={{ height: barFillHeight, backgroundColor: 'red' }}></div> ``` 
+    - the style object is ``` { height: barFillHeight, backgroundColor: 'red' } ```
+    - Use backgroundColor instead of background-color
 
