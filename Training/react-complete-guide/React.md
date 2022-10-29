@@ -39,11 +39,139 @@ function Component(props){
     - the first element is the current state value. (for read state's value)
     - the second element is a function for updating that. (for write state's value)
     - example ``` const [title, setTitle] = useState(props.title) ```
-- When a state's vaule is changed, React will re-evaluate the component.
+- When a state's value is changed, React will re-evaluate the component.
 - State is separated on a per component instance basis.
+- use state with basic type.
+    ``` javascript 
+    const [enteredTitle, setEnterdTitle] = useState(''); 
+    const titleChangeHandler = (event) => {
+    setEnterdTitle(event.target.value);
+    }; 
+    ```
+- use state with object
+    ``` javascript
+    const [userInput, setUserInput] = useState({
+        enteredTitle: '',
+        enteredAmount: 0,
+        enteredDate: ''
+    }); 
+    ``` 
+    If you only update the value with ``` setUserInput({ enteredTitle : event.target.value }) ```, then the other values will be lose. You need to use spread operator to pulls out all the key value pairs. and adds them to the new object. 
+    ``` javascript
+    const titleChangeHandler = (event) => {
+        setUserInput({
+            ...useState,
+            enteredTitle : event.target.value
+        })
+    };  
+    ```
+    Reacts schedules state updates, it doesn't perform them instantly. The above update is depends on the previous state value. It could be depending on an outdated or incorrect state snapshot. The following approach can have React guarantee that the state snapshot it gives you here in this inner function, will always be the latest state snapshot,
+    ``` javascript 
+        const titleChangeHandler = (event) => {
+        setUserInput((preState)=> {
+            return {...preState,  enteredTitle : event.target.value}
+        });
+    };
+    ```
+    We should use this function syntax here whenever your state update depends on the previous state.
+-  typically you end up with less state full components than with state less components. Because you wanna split up your application into small reusable pieces and most pieces, most components indeed will only focus on outputting something, on having some JSX code,
+# Pass data from child to parent (lift the start up)
+Parent
+``` javascript
+const NewExpense = () => {
+    const saveExpenseDataHandler = (enteredExpenseDate) =>{
+        const expendData = {
+            ...enteredExpenseDate,
+            id: Math.random().toString()
+        }
+    };
 
+    return <div className="new-expense">
+        <ExpenseForm onSaveExpenseDataHandler={saveExpenseDataHandler} /> 
+    </div>
+}
+```
+Child
+``` javascript
+const ExpenseForm = (props) => {
+    const submitHandler = (event) => {
+        event.preventDefault();
+        const expenseData = {
+            title: enteredTitle,
+            amount: enteredAmount,
+            date: new Date(enteredDate)
+        }
+        props.onSaveExpenseDataHandler(expenseData);
+    };
 
+    return <form onSubmit={submitHandler}>
+    </form>
+};
+```
+# Rending Lists & Conditional Content
+- map
+    - before
+    ``` javascript 
+    <ExpenseItem title={props.items[0].title} amount={props.items[0].amount} date={props.items[0].date}/>
+    <ExpenseItem title={props.items[1].title} amount={props.items[1].amount} date={props.items[1].date}/>
+    <ExpenseItem title={props.items[2].title} amount={props.items[2].amount} date={props.items[2].date}/>
+    ```
+    - after
+    ``` javascript 
+    {props.items.map(
+        (expense, index)=> <ExpenseItem key={index} title={expense.title} amount={expense.amount} date={expense.date}/>
+    )}
+    ```
+- unique id in the list item
+    - Good: use uniqie id to identify the item.
+    ``` javascript 
+    props.items.map(
+        (expense, index)=> <ExpenseItem key={expense.id} title={expense.title} amount={expense.amount} date={expense.date}/>
+    )
+    ```
+    - Bad: this index is not always given to the same item.
+    ``` javascript 
+    props.items.map(
+        (expense, index)=> <ExpenseItem key={index} title={expense.title} amount={expense.amount} date={expense.date}/>
+    )    
+    ```
+- having a lean JSX snippet
+    - Better
+    ``` javascript 
+        const expenseContent = filteredExpenses.length === 0 ?
+            <p>No expenses found</p> :
+            filteredExpenses.map(
+                (expense, index) => <ExpenseItem key={expense.id} title={expense.title} amount={expense.amount} date={expense.date} />
+            )
+        return (
+        <div>
+            {expenseContent}
+        </div>
+    )
+    ```
+    - Not good
+    ``` javascript 
+    return (
+        <div>
+            {filteredExpenses.length === 0 ?
+                <p>No expenses found</p> :
+                filteredExpenses.map(
+                    (expense, index) => <ExpenseItem key={expense.id} title={expense.title} amount={expense.amount} date={expense.date} />
+                )}
+        </div>
+    )
+    ```
+# Conditional & Dynamic Styles
+## Style attribute
+``` { style object} ```. 
+- The style object is a JavaScript object. 
+- camelCased Property Names
+- For example, 
+``` <div className="chart-bar__fill" style={{ height: barFillHeight, backgroundColor: 'red' }}></div> ``` 
+    - the style object is ``` { height: barFillHeight, backgroundColor: 'red' } ```
+    - Use backgroundColor instead of background-color
 
-
-    
+## Styling component
+- scoping styles to components, so for setting up styles only affect the component
+- global styles.
 
