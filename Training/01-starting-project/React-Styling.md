@@ -80,21 +80,58 @@ https://styled-components.com/
 - https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
 - A CSS Module is a CSS file in which all class names and animation names are scoped locally by default
 - This project supports CSS Modules alongside regular stylesheets using the [name].module.css file naming convention.
-``` javascript 
-import styles from './Button.module.css';
+- Example
+    ``` javascript 
+    import styles from './Button.module.css';
 
-const Button = props => {
-  return (
-    <button type={props.type} className={styles.button} onClick={props.onClick}>
-      {props.children}
-    </button>
-  );
-};
-```
-The HTML result
-``` html 
-<button type="submit" class="Button_button__1u4-R">Add Goal</button>
-```
+    const Button = props => {
+    return (
+        <button type={props.type} className={styles.button} onClick={props.onClick}>
+        {props.children}
+        </button>
+    );
+    };
+    ```
+    The HTML result
+    ``` html 
+    <button type="submit" class="Button_button__1u4-R">Add Goal</button>
+    ```
+- Example
+    - CourseInput.module.css
+    ``` CSS
+    .form-control {
+    margin: 0.5rem 0;
+    }
+
+    .form-control label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+    }
+    .form-control.invalid input {
+    border-color: red;
+    background: #fad0ec;
+    }
+
+    .form-control.invalid label {
+    color: red;
+    }
+
+    ```
+    - CourseInput.js
+    ``` javascript
+    <div className={`${styles['form-control']} ${!isValid && styles.invalid}`} >
+        <label>Course Goal</label>
+        <input type="text" onChange={goalInputChangeHandler} />
+    </div>
+    ```
+    - output HTML
+    ``` html
+    <div class="CourseInput_form-control__1i2th CourseInput_invalid__3SJSD">
+        <label>Course Goal</label>
+        <input type="text">
+    </div>
+    ```
 
 
 
