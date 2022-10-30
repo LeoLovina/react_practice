@@ -8,6 +8,10 @@ const Button = styled.button`
   background: #8b005d;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.26);
   cursor: pointer;
+  @media (min-width: 700px) {
+    width: auto;
+    color: red;
+  }
 
 &:focus {
   outline: none;
@@ -18,9 +22,7 @@ const Button = styled.button`
   background: #ac0e77;
   border-color: #ac0e77;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.26);
-}
-
-`;
+}`;
 // import './Button.css';
 
 // const Button = props => {
