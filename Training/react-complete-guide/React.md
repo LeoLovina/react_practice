@@ -11,6 +11,8 @@
 - JSX code is just syntactic suger and has transformed two methods called on React object.
 	- call them JSX element
 - Split an application into smaller building blocks (components). Every component is focused on one core task. 
+- Always have one component per file
+	- But if you have a component that is really only getting used by the other component in that file, having both components in the same fall can make sense too.
 # props
 - are arguments passed into React components.
 - are passed to components via HTML attributes
