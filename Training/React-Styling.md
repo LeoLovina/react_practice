@@ -80,6 +80,7 @@ https://styled-components.com/
 - https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
 - A CSS Module is a CSS file in which all class names and animation names are scoped locally by default
 - This project supports CSS Modules alongside regular stylesheets using the [name].module.css file naming convention.
+- It can generate a unique class name that can be used anywhere. 
 - Example
     ``` javascript 
     import styles from './Button.module.css';
@@ -120,6 +121,7 @@ https://styled-components.com/
     ```
     - CourseInput.js
     ``` javascript
+    import styles from './CourseInput.module.css';
     <div className={`${styles['form-control']} ${!isValid && styles.invalid}`} >
         <label>Course Goal</label>
         <input type="text" onChange={goalInputChangeHandler} />
@@ -132,6 +134,17 @@ https://styled-components.com/
         <input type="text">
     </div>
     ```
+- Example 
+    
+    ``` javascript 
+    import React from "react";
+    import styles from "./Card.module.css";
 
+    const Card = (props) =>{
+        return <div className={`${styles.card} ${props.className}`}>
+            {props.children}
+        </div>
+    };
+    ```
 
 
