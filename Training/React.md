@@ -16,10 +16,6 @@
 # props
 - are arguments passed into React components.
 - are passed to components via HTML attributes
-## props.children 
-- is a built property. 
-- is a reserved name in props
-- it is used to display whatever you include between the opening and closing tags when invoking a component.
 ``` javascript 
 <Component name='John' /> 
 
@@ -27,6 +23,29 @@ function Component(props){
     return (<div>Hello {props.name} <div>)
 }
 ```
+## props.children 
+- is a built property. 
+- is a reserved name in props
+- it is used to display whatever you include between the opening and closing tags when invoking a component.
+``` javascript
+const Card = (props) =>{
+    return <div>
+        {props.children}
+    </div>
+};
+```
+``` javascript 
+<Card>
+    <form onSubmit={addUserHandler}>
+        <label htmlFor="username">Username</label>
+        <input id="username" type="text"></input>
+        <label htmlFor="age">Age (years)</label>
+        <input id="age" type="number"></input>
+        <button type="submit" >Add User</button>
+    </form>
+</Card>
+```
+
 
 # sub folder
 - general user interface component
@@ -176,4 +195,73 @@ const ExpenseForm = (props) => {
 ## Styling component
 - scoping styles to components, so for setting up styles only affect the component
 - global styles.
+# React DOM
+React DOM is kind of the adapter for React to the browser. 
 
+# Fragment
+- Since React cannot return more than one "root" JSX element, we can add a div to wrappe our components. But it will generate unnecessary HTML. How to write cleaner code, to end up with less unnecessary HTML elements on the final page.
+- solution A - wrapper component
+    ``` javascript
+    const Wrapper = props => {
+        return props.children;
+    }
+    ```
+- solution B - built-in wrapper
+    ``` javascript
+    <> 
+        <h1>This is a built-in wrapper </h1>
+    </>
+    ```
+- solution C - Fragment
+    ``` javascript 
+     return (
+        <React.Fragment>
+        <ChildA />
+        <ChildB />
+        <ChildC />
+        </React.Fragment>
+    );
+    ```
+# portal
+- The portal component renders its children into a new "subtree" outside of current DOM hierarchy. The rendered HTML content is moved somewhere else.
+	- file ErrorModal.js
+	``` javascript 
+	import  ReactDOM  from "react-dom";
+
+	// define a portal component
+	const Backdrop = (props) => {
+		return <div className={classes.backdrop} onClick={props.onConfirm} />;
+	  };
+
+	// tell portal component where to display
+	const ErrorModal = (props) => {
+		return (
+		  <React.Fragment>
+			{ReactDOM.createPortal(
+			  <Backdrop onConfirm={props.onConfirm} />,
+			  document.getElementById('backdrop-root')
+			)}
+		  </React.Fragment>
+		);
+	  };
+
+	```
+	- index.html
+	``` html
+	 <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="backdrop-root"></div>
+    <div id="overlay-root"></div>
+    <div id="root"></div>
+	```
+# ref 
+
+# Effects, Reducer & Context
+## Effects
+- React has a main job to render the UI and to re-render UI when it's needed. Re-evaluate Component upon State & Prop Changes
+- ```useEffect(()=>{sideEffect function}, [ dependencies ]);```
+    - sideEffect function: A function that should be executed After every component evaluation IF the specified dependencies changed.
+    - Dependencies of this effect
+
+# refreance
+- https://github.com/academind/react-complete-guide-code

@@ -90,3 +90,10 @@ console.log(thirdPerson.name)   // show Max
 ```
 
 # Array function
+
+# Trick
+- force to number by adding "+" to the beginning of a variable.
+	- +myVariable
+- set default value
+	- ``` type={props.type || 'button'}```
+    - if props.type is undefined, then type is "button"
