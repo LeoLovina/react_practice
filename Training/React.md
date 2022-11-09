@@ -379,5 +379,84 @@ React DOM is kind of the adapter for React to the browser.
     ```
     - object de-structuring ``` const { isValid:emailIsVaild} = emailState; ``` 
         - let emailIsVaild = emailState.isValid
+## Context
+- Context provides a way to share values like these between components without having to explicitly pass a prop through every level of the tree.
+- Don't need prop chian. 
+- Example: Provider & Consumer | useContext
+    - define context
+    ``` javascript 
+    import React from "react";
+    const AuthContext = React.createContext({
+        isLoggedIn: false,
+        onLogout: ()=>{}
+    });
+    export default AuthContext;
+    ```
+    - wrap context component ``` <MyContext.Provider value={/* some value */}> ```
+    ``` javascript 
+    <AuthContext.Provider value={{
+        isLoggedIn: isLoggedIn,
+        onLogout: logoutHandler
+      }}>
+        <MainHeader onLogout={logoutHandler} />
+        <main>
+          {!isLoggedIn && <Login onLogin={loginHandler} />}
+          {isLoggedIn && <Home onLogout={logoutHandler} />}
+        </main>
+      </AuthContext.Provider>
+    ```
+    - consuming context
+        - Context.Consumer
+        ``` javascript
+        <MyContext.Consumer>
+        {value => /* render something based on the context value */}
+        </MyContext.Consumer>
+        ```
+    ``` javascript 
+    const Navigation = (props) => {
+        return (
+            <AuthContext.Consumer>
+            {(ctx) => {
+                return (<nav className={classes.nav}>
+                <ul>
+                    {ctx.isLoggedInaa && (
+                    <li>
+                        <a href="/">Users</a>
+                    </li>
+                    )}
+                </ul>
+                </nav>
+                )
+            }}
+            </AuthContext.Consumer>
+        );
+    };
+    ```
+    - useContext
+    ``` javascript 
+    import React, { useContext} from 'react';
+    import AuthContext from '../../store/auth-context';
+    const Navigation = (props) => {
+        const ctx = useContext(AuthContext);
+        return (
+            <nav className={classes.nav}>
+            <ul>
+                {ctx.isLoggedInaa && (
+                <li>
+                    <a href="/">Users</a>
+                </li>
+                )}
+            </ul>
+            </nav>
+        );
+    };
+    ```
+
+### Context.Consumer
+``` javascript
+<MyContext.Consumer>
+  {value => /* render something based on the context value */}
+</MyContext.Consumer>
+```
 # refreance
 - https://github.com/academind/react-complete-guide-code
