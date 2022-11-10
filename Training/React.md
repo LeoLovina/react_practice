@@ -451,12 +451,6 @@ React DOM is kind of the adapter for React to the browser.
         );
     };
     ```
-
-### Context.Consumer
-``` javascript
-<MyContext.Consumer>
-  {value => /* render something based on the context value */}
-</MyContext.Consumer>
-```
+    - it's not great for high-frequency changes.
 # refreance
 - https://github.com/academind/react-complete-guide-code
