@@ -90,7 +90,8 @@ console.log(thirdPerson.name)   // show Max
 ```
 
 # Array function
-
+- map((element) => { /* … */ })
+	- map((element) => { return {key: element.key} })
 # Trick
 - force to number by adding "+" to the beginning of a variable.
 	- +myVariable
