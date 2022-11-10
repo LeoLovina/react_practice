@@ -259,9 +259,198 @@ React DOM is kind of the adapter for React to the browser.
 # Effects, Reducer & Context
 ## Effects
 - React has a main job to render the UI and to re-render UI when it's needed. Re-evaluate Component upon State & Prop Changes
-- ```useEffect(()=>{sideEffect function}, [ dependencies ]);```
-    - sideEffect function: A function that should be executed After every component evaluation IF the specified dependencies changed.
+- the effect function is called once after component evaluation
+- ```useEffect(()=>{effect function}, [ dependencies ]);```
+    - effect function: A function that should be executed After every component evaluation IF the specified dependencies changed.
     - Dependencies of this effect
+- Example A. without dependence
+    ``` javascript
+    useEffect(() => {
+        const storageUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+        if (storageUserLoggedInInformation === "1") {
+        setIsLoggedIn(true);
+        }
+    }, []);
+    ```
+- Exmple B. with depenedence
+    ``` javascript 
+        useEffect(()=>{
+        setFormIsValid(
+            enteredEmail.includes('@') && enteredPassword.trim().length > 6
+        );
+    }, [enteredEmail, enteredPassword]);
+    ```
+- Example C. with debounce
+    ``` javascript 
+    useEffect(()=>{
+        console.log("Login useEffect");
+        setTimeout(()=>{
+            console.log("Login useEffect - setFormIsValid");
+            setFormIsValid(
+            enteredEmail.includes('@') && enteredPassword.trim().length > 6
+            );
+        }, 1000);
+    }, [enteredEmail, enteredPassword]);
+    ```   
+- Example D. with cleanup - 
+    - cleanup function helps developers clean effects that prevent unwanted behaviors and optimizes application performance
+    - cleanup function will run as a cleanup process before useEffect executes this function the next time.
+    ``` javascript 
+    useEffect(() => {
+            effect
+            return () => {
+                cleanup
+            }
+        }, [input])    
+    ```
+    ``` javascript 
+    useEffect(()=>{
+        console.log("Login useEffect");
+        const timeoutHandler = setTimeout(()=>{
+        console.log("Login useEffect - setFormIsValid");
+        setFormIsValid(
+            enteredEmail.includes('@') && enteredPassword.trim().length > 6
+        );
+    }, 500);
 
+    return ()=>{
+        console.log("Cleanup");
+        clearTimeout(timeoutHandler);
+        };
+    }, [enteredEmail, enteredPassword]);
+    ```
+## Reducer
+- Problem: the value on setFormIsValid depends on the previous state ``` enteredEmail```. The ```enteredEmail``` may not contain the latest value. Need to use the function form. 
+``` javascript 
+  const passwordChangeHandler = (event) => {
+    setEnteredPassword(event.target.value);
+
+    setFormIsValid(
+      enteredEmail.includes('@') && event.target.value.trim().length > 6
+    );
+  };
+```
+- When to use useReducer
+    - complex state updating logic where you always are guaranteed to work with the latest state snapshot.
+    - you can move that potentially more complex logic out of your component function body into a separate reducer function.
+``` javascript 
+    const [state, dispatchFn] = useReducer(reducerFn, initialState, initFn);
+```
+    - state: the state snapshot used in the component
+    - dispatchFn: a function that can be used to dispatch a new action (dispatch an action)
+    - reducerFn: (preState, action) => newState
+        - this function is triggered automatically once an action is dispatched (via dispatchFn())
+        - React will call this reducer function whenever a new action is dispatched.
+        - The reducer function can be created outside on component because it does not need to interact with anything defined inside of the component.
+- Example
+    - reducerFn
+    ``` javascript 
+    // the reducer function is called by React
+    // state: previous state
+    // action: action in this call
+    const emailReducer = (state, action) => {
+    if (action.type === 'USER_INPUT'){
+        return { value: action.val, isValid: action.val.includes('@')};
+    }
+    if (action.type === 'USER_BLUR'){
+        return { value: state.value, isValid: state.value.includes('@')}
+    }
+    return { value: '', isValid: false};
+    };
+    ```
+    -  useReducer
+    ``` javascript 
+    const [emailState, dispatchEmail] = useReducer(
+        emailReducer,
+        {value:'', isValid: false}
+    );
+    ```  
+    - dispatchFn 
+    ``` javascript
+    dispatchEmail({type: 'USER_INPUT', val: event.target.value})
+    ```
+- using object destructuring to add object properties as dependencies to useEffect().
+    - pass specific properties instead of the entire object as a dependency
+    ``` javascript
+    const { someProperty } = someObject;
+    useEffect(() => {
+    // code that only uses someProperty ...
+    }, [someProperty]);
+    ```
+    - object de-structuring ``` const { isValid:emailIsVaild} = emailState; ``` 
+        - let emailIsVaild = emailState.isValid
+## Context
+- Context provides a way to share values like these between components without having to explicitly pass a prop through every level of the tree.
+- Don't need prop chian. 
+- Example: Provider & Consumer | useContext
+    - define context
+    ``` javascript 
+    import React from "react";
+    const AuthContext = React.createContext({
+        isLoggedIn: false,
+        onLogout: ()=>{}
+    });
+    export default AuthContext;
+    ```
+    - wrap context component ``` <MyContext.Provider value={/* some value */}> ```
+    ``` javascript 
+    <AuthContext.Provider value={{
+        isLoggedIn: isLoggedIn,
+        onLogout: logoutHandler
+      }}>
+        <MainHeader onLogout={logoutHandler} />
+        <main>
+          {!isLoggedIn && <Login onLogin={loginHandler} />}
+          {isLoggedIn && <Home onLogout={logoutHandler} />}
+        </main>
+      </AuthContext.Provider>
+    ```
+    - consuming context
+        - Context.Consumer
+        ``` javascript
+        <MyContext.Consumer>
+        {value => /* render something based on the context value */}
+        </MyContext.Consumer>
+        ```
+    ``` javascript 
+    const Navigation = (props) => {
+        return (
+            <AuthContext.Consumer>
+            {(ctx) => {
+                return (<nav className={classes.nav}>
+                <ul>
+                    {ctx.isLoggedInaa && (
+                    <li>
+                        <a href="/">Users</a>
+                    </li>
+                    )}
+                </ul>
+                </nav>
+                )
+            }}
+            </AuthContext.Consumer>
+        );
+    };
+    ```
+    - useContext
+    ``` javascript 
+    import React, { useContext} from 'react';
+    import AuthContext from '../../store/auth-context';
+    const Navigation = (props) => {
+        const ctx = useContext(AuthContext);
+        return (
+            <nav className={classes.nav}>
+            <ul>
+                {ctx.isLoggedInaa && (
+                <li>
+                    <a href="/">Users</a>
+                </li>
+                )}
+            </ul>
+            </nav>
+        );
+    };
+    ```
+    - it's not great for high-frequency changes.
 # refreance
 - https://github.com/academind/react-complete-guide-code

@@ -21,7 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-dist/
-__snapshots__/
-Training/01-starting-project/.eslintcache
-Training/03-Effect-Reducer-Context-project/.eslintcache
