@@ -255,7 +255,35 @@ React DOM is kind of the adapter for React to the browser.
     <div id="root"></div>
 	```
 # ref 
+- It can be used to store a mutable value that does not cause a re-render when updated.
+- It can be used to access a DOM element directly.
+``` javascript
+import React, { useRef } from 'react';
 
+function AddMovie(props) {
+  const titleRef = useRef('');
+
+  function submitHandler(event) {
+    event.preventDefault();
+    // could add validation here...
+    const movie = {
+      title: titleRef.current.value
+    };
+  }
+
+  return (
+    <form onSubmit={submitHandler}>
+      <div className={classes.control}>
+        <label htmlFor='title'>Title</label>
+        <input type='text' id='title' ref={titleRef} />
+      </div>
+      <button>Add Movie</button>
+    </form>
+  );
+}
+
+export default AddMovie;
+```
 # Effects, Reducer & Context
 ## Effects
 - React has a main job to render the UI and to re-render UI when it's needed. Re-evaluate Component upon State & Prop Changes
@@ -452,5 +480,64 @@ React DOM is kind of the adapter for React to the browser.
     };
     ```
     - it's not great for high-frequency changes.
+
+# Sending Http Requests
+## fetch API
+- The Fetch API is built into browsers and it allows us to fetch data and actually also to send data
+- Example: Asynchronous
+``` javascript 
+  const fetchMoviesHandler = () => {
+    fetch("https://swapi.dev/api/films")
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        const transformedMovies = data.results.map((m) => {
+          return {
+            id: m.episode_id,
+            title: m.title,
+            openingText: m.opening_crawl,
+            releaseDate: m.release_date
+          }
+        });
+        setMovies(transformedMovies);
+      });
+  }
+```
+- Example: Synchronous.  execute step after step
+``` javascript
+const fetchMoviesHandler = async () => {
+    console.log('fetchMoviesHandler')
+    const response = await fetch("https://swapi.dev/api/films");
+    console.log('data')
+    const data = await response.json();
+
+    console.log('transformedMovies')
+    const transformedMovies = await data.results.map((m) => {
+      return {
+        id: m.episode_id,
+        title: m.title,
+        openingText: m.opening_crawl,
+        releaseDate: m.release_date
+      }
+    });
+    setMovies(transformedMovies);
+  }
+```
+- Example: post
+``` javascript 
+ async function addMovieHandler(movie) {
+    console.log(movie);
+    const response = await fetch('https://apitest-39bad-default-rtdb.firebaseio.com/movie.json',{
+      method:'POST',
+      body: JSON.stringify(movie),
+      headers:{
+        'Context-Type': 'application/json'
+      }
+    });
+    const data = await response.json();
+    console.log(data);
+  }
+```
 # refreance
 - https://github.com/academind/react-complete-guide-code
