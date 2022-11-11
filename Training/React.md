@@ -255,7 +255,35 @@ React DOM is kind of the adapter for React to the browser.
     <div id="root"></div>
 	```
 # ref 
+- It can be used to store a mutable value that does not cause a re-render when updated.
+- It can be used to access a DOM element directly.
+``` javascript
+import React, { useRef } from 'react';
 
+function AddMovie(props) {
+  const titleRef = useRef('');
+
+  function submitHandler(event) {
+    event.preventDefault();
+    // could add validation here...
+    const movie = {
+      title: titleRef.current.value
+    };
+  }
+
+  return (
+    <form onSubmit={submitHandler}>
+      <div className={classes.control}>
+        <label htmlFor='title'>Title</label>
+        <input type='text' id='title' ref={titleRef} />
+      </div>
+      <button>Add Movie</button>
+    </form>
+  );
+}
+
+export default AddMovie;
+```
 # Effects, Reducer & Context
 ## Effects
 - React has a main job to render the UI and to re-render UI when it's needed. Re-evaluate Component upon State & Prop Changes
@@ -494,6 +522,21 @@ const fetchMoviesHandler = async () => {
       }
     });
     setMovies(transformedMovies);
+  }
+```
+- Example: post
+``` javascript 
+ async function addMovieHandler(movie) {
+    console.log(movie);
+    const response = await fetch('https://apitest-39bad-default-rtdb.firebaseio.com/movie.json',{
+      method:'POST',
+      body: JSON.stringify(movie),
+      headers:{
+        'Context-Type': 'application/json'
+      }
+    });
+    const data = await response.json();
+    console.log(data);
   }
 ```
 # refreance
